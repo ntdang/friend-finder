@@ -7,6 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <title>FriendFinder</title>
 </head>
 
@@ -175,24 +178,64 @@
         </div>
       </div>
       <br>
-      <button type="submit" class="btn btn-info btn-lg btn-block">
-          <i class="far fa-check-square"></i> Submit</button>
-
+      <button id='submit' type="submit" class="btn btn-info btn-lg btn-block">
+        <i class="far fa-check-square"></i> Submit</button>
     </form>
   </div>
   <br>
 
   <script type="text/javascript">
-  
-  
-  
-  
-  
-  
+    $('#submit').on('click', function (event) {
+      event.preventDefault();
+      //grab input values from survey form
+      var newFriend = {
+        name: $('#name').val().trim(),
+        photo: $('#photo').val().trim(),
+        scores: [
+          $('#s1').val().trim(),
+          $('#s2').val().trim(),
+          $('#s3').val().trim(),
+          $('#s4').val().trim(),
+          $('#s5').val().trim(),
+          $('#s6').val().trim(),
+          $('#s7').val().trim(),
+          $('#s8').val().trim(),
+          $('#s9').val().trim(),
+          $('#s10').val().trim()
+        ]
+      };
+
+      //POST into friends
+      $.post('/api/friends', newFriend)
+        .then(function (data) {
+          console.log(data);
+        });
+
+      //compare new friend values to existing friends values
+
+      //select closest match
+
+      //display modal with name and picture of closest match
+
+
+
+
+    });
+    // Determine the user's most compatible friend using the following as a guide:
+
+    // Convert each user's results into a simple array of numbers (ex: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]).
+    // With that done, compare the difference between current user's scores against those from other users, question by question. Add up the differences to calculate the totalDifference.
+    // Example:
+    // User 1: [5, 1, 4, 4, 5, 1, 2, 5, 4, 1]
+    // User 2: [3, 2, 6, 4, 5, 1, 2, 5, 4, 1]
+    // Total Difference: 2 + 1 + 2 = 5
+    // Remember to use the absolute value of the differences. Put another way: no negative solutions! Your app should calculate both 5-3 and 3-5 as 2, and so on.
+    // The closest match will be the user with the least amount of difference.
+    // Once you've found the current user's most compatible friend, display the result as a modal pop-up.
+
+    // The modal should display both the name and picture of the closest match.
   </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 
 </body>
 

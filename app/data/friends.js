@@ -1,5 +1,4 @@
 //This array of objects will hold all of the friends
-
 module.exports = [
   {
     name: 'Nhi',
