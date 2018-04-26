@@ -11,6 +11,7 @@ var PORT = process.env.PORT || 3000;
 // Set up middleware (body-parser)
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
+app.use(express.static('public'));
 
 // Set up routes
 require('./app/routing/apiRoutes')(app);

@@ -1,7 +1,6 @@
 var friends = require('../data/friends');
 
 module.exports = function(app) {
-
   // Get ALL friends
   app.get('/api/friends', function(req, res) {
     return res.json(friends);
@@ -10,11 +9,29 @@ module.exports = function(app) {
   // POST a new friend
   app.post('/api/friends', function(req, res) {
     var newFriend = req.body;
-  
-    console.log('New friend added! + ' + newFriend);
+    var newFriendName = req.body.name;
+    var newFriendPhoto = req.body.photo;
 
+    //newFriend scores
+    var surveyScore = req.body.scores;
+    var newScore = 0;
+
+    //loop to grab values in array and add
+    for (var i = 0; i < surveyScore.length; i++) {
+      newScore += parseInt(surveyScore[i]);
+    }
+    console.log('newFriends score is: ' + newScore);
+
+    //totals for each existing friend
+
+
+
+
+
+    //add newFriend to friends array
     friends.push(newFriend);
-
+    console.log('New friend added! + ' + newFriend);
+    //sends newFriend info into api as JSON
     res.json(newFriend);
 
   });
