@@ -16,27 +16,26 @@ module.exports = function(app) {
     var surveyScore = req.body.scores;
     var newScore = 0;
 
-    //loop to grab values in array and add to get newScore
+    // loop to grab values in array and add to get newScore
     for (var i = 0; i < surveyScore.length; i++) {
       newScore += parseInt(surveyScore[i]);
-    }
+    };
     console.log('newFriends score is: ' + newScore);
 
     //scores for each existing friend
     for (var i = 0; i < friends.length; i++) {
       var compareScores = friends[i].scores;
       console.log('Comparison scores are: ' + compareScores);
-
-      //add up each of the existing scores then put into an array ARRAY NOT CORRECT
-      var compTotals = 0;
-      var compArr = [];
-      for (var j = 0; j < compareScores.length; j++) {
-        compTotals += parseInt(compareScores[j]);
-        // compArr.push(compTotals);
-      }
-      console.log('Comp totals are: ' + compTotals);
-      console.log('Comp array is: ' + compArr);
     }
+    //loops through and subtracts existing scores from new score
+    for (var i = 0; i < friends.length; i++) {
+      var totalDiff = 0;
+      for (var j = 0; j < 10; j++) {
+          let scoreDiff = Math.abs(friends[i].scores[j] - newFriend.scores[j]);
+          totalDiff += scoreDiff;
+      }
+      console.log('Total diff is: ' + totalDiff);
+    };
 
     //add newFriend to friends array
     friends.push(newFriend);
