@@ -34,12 +34,24 @@ module.exports = function (app) {
         var scoreDiff = Math.abs(compTotals - newScore);
       }
       diffArr.push(scoreDiff);
-      var minDiff = Math.min.apply(null, diffArr);
       console.log('Comp totals are: ' + compTotals);
       console.log('Score diffs are: ' + scoreDiff);
       console.log('Diff arr: ' + diffArr);
-      console.log('Min diff: ' + minDiff);
     }
+
+    //find minimum difference in the diffArr
+    var minDiff = Math.min.apply(null, diffArr);
+    console.log('Min diff: ' + minDiff);
+
+    //find best match
+    var bestMatch = [];
+    for (var i = 0; i < diffArr.length; i++) {
+      if (diffArr[i] === minDiff) {
+        bestMatch.push(friends[i].name, friends[i].photo);
+      }
+    }
+    console.log('Best match is: ' + JSON.stringify(bestMatch));
+
 
     //loops through and subtracts existing scores from new score
     // for (var i = 0; i < friends.length; i++) {
