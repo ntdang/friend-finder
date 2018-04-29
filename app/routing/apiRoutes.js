@@ -11,6 +11,7 @@ module.exports = function (app) {
     var newFriend = req.body;
     var newFriendName = req.body.name;
     var newFriendPhoto = req.body.photo;
+    var diffArr = [];
 
     //newFriend scores
     var surveyScore = req.body.scores;
@@ -32,8 +33,12 @@ module.exports = function (app) {
         compTotals += parseInt(compareScores[j]);
         var scoreDiff = Math.abs(compTotals - newScore);
       }
+      diffArr.push(scoreDiff);
+      var minDiff = Math.min.apply(null, diffArr);
       console.log('Comp totals are: ' + compTotals);
       console.log('Score diffs are: ' + scoreDiff);
+      console.log('Diff arr: ' + diffArr);
+      console.log('Min diff: ' + minDiff);
     }
 
     //loops through and subtracts existing scores from new score
