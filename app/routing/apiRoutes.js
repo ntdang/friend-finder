@@ -52,26 +52,12 @@ module.exports = function (app) {
     }
     console.log('Best match is: ' + JSON.stringify(bestMatch));
 
-
-    //loops through and subtracts existing scores from new score
-    // for (var i = 0; i < friends.length; i++) {
-    //   var totalDiff = 0;
-    //   var totalDiffArr = [];
-    //   for (var j = 0; j < 10; j++) {
-    //       var scoreDiff = Math.abs(friends[i].scores[j] - newFriend.scores[j]);
-    //       totalDiff += scoreDiff;
-    //       // totalDiffArr.push(totalDiff);
-    //   }
-    //   console.log('Total diff is: ' + totalDiff);
-    //   // console.log('Array is: ' + totalDiffArr);
-    // };
-    //DO WE NEED TO MAKE AN ARRAY TO FIND THE MIN???
-
-
+    //sends back best match
+    res.json(bestMatch);
     //add newFriend to friends array
     friends.push(newFriend);
     console.log('New friend added! + ' + newFriend);
     //sends newFriend info into api as JSON
-    res.json(newFriend);
+    // res.json(newFriend);
   });
 };

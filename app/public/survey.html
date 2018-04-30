@@ -21,11 +21,11 @@
     <form>
       <div class="form-group">
         <label for="exampleFormControlInput1">Name (required)</label>
-        <input type="text" class="form-control" id="name">
+        <input type="text" class="form-control name-validate" id="name">
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Link to Photo Image (required)</label>
-        <input type="text" class="form-control" id="photo">
+        <input type="text" class="form-control photo-validate" id="photo">
       </div>
       <br>
       <h4>Statement 1</h4>
@@ -179,19 +179,61 @@
       </div>
       <br>
       <button id='submit' type="submit" class="btn btn-info btn-lg btn-block">
-        <i class="far fa-check-square"></i> Submit</button>
+        <i class="far fa-check-square" data-toggle="modal" data-target="#matchModal"></i> Submit</button>
     </form>
   </div>
   <br>
-
-<!-- 
-  // Once you've found the current user's most compatible friend, display the result as a modal pop-up.
-
-  // The modal should display both the name and picture of the closest match. -->
+  <!-- Modal -->
+  <div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Your Best Match Is...!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 id="match-name"></h4>
+          <img id="match-image" src="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script type="text/javascript">
     $('#submit').on('click', function (event) {
       event.preventDefault();
+
+      let validate = true;
+
+      if ($('.name-validate').val() === '') {
+        validate = false;
+        $('.name-validate').addClass('is-invalid');
+        return false;
+      } else {
+        $('.name-validate').removeClass('is-invalid');
+      };
+
+      if ($('.photo-validate').val() === '') {
+        validate = false;
+        $('.photo-validate').addClass('is-invalid');
+        return false;
+      } else {
+        $('.photo-validate').removeClass('is-invalid');
+      };
+
+      if ($('.custom-select').val() === '') {
+        validate = false;
+        $('.custom-select').addClass('is-invalid');
+        return false;
+      } else {
+        $('.custom-select').removeClass('is-invalid');
+      };
+
       //grab input values from survey form
       var newFriend = {
         name: $('#name').val().trim(),
@@ -212,7 +254,10 @@
 
       //POST into friends
       $.post('/api/friends', newFriend)
-        .then(function (data) {
+        .done(function (data) {
+          $('#matchModal').modal('toggle');
+          $('#match-name').text(data[0]);
+          $('#match-image').attr('src', data[1])
           console.log(data);
         });
     });
